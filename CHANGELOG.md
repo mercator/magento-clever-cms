@@ -1,3 +1,9 @@
+## 2.1.3 (branch: master) (2012-04-20)
+
+### Enhancements
+
+* Enhanced cms page selection in config
+
 ## 2.1.2 (branch: master) (2012-03-06)
 
 ### Fixes

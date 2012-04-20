@@ -37,6 +37,11 @@
                     <cms_page>JR_CleverCms_Model_Resource_Sitemap_Cms_Page</cms_page>
                 </rewrite>
             </sitemap_resource>
+            <adminhtml>
+                <rewrite>
+                    <system_config_source_cms_page>JR_CleverCms_Model_Adminhtml_System_Config_Source_Cms_Page</system_config_source_cms_page>
+                </rewrite>
+            </adminhtml>
         </models>
         <blocks>
             <jr_clevercms>
