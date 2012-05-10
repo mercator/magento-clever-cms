@@ -57,6 +57,11 @@
                     <navigation>JR_CleverCms_Block_Catalog_Navigation</navigation>
                 </rewrite>
             </catalog>
+            <page>
+                <rewrite>
+                    <html_topmenu>JR_CleverCms_Block_Page_Html_Topmenu</html_topmenu>
+                </rewrite>
+            </page>
             <adminhtml>
                 <rewrite>
                     <cms_page_edit>JR_CleverCms_Block_Adminhtml_Cms_Page_Edit</cms_page_edit>
