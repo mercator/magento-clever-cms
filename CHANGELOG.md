@@ -1,3 +1,9 @@
+## 2.1.5 (branch: master) (2012-05-10)
+
+### Fixes
+
+* Fixed issue #8 (Top menu for Magento 1.7)
+
 ## 2.1.4 (branch: master) (2012-05-03)
 
 ### Fixes
