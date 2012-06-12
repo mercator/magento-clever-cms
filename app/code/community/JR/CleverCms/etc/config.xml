@@ -107,6 +107,22 @@
                 </args>
             </cms>
         </routers>
+        <layout>
+            <updates>
+                <jr_clevercms module="JR_CleverCms">
+                    <file>jr_clevercms.xml</file>
+                </jr_clevercms>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <JR_CleverCms>
+                    <files>
+                        <default>JR_CleverCms.csv</default>
+                    </files>
+                </JR_CleverCms>
+            </modules>
+        </translate>
     </frontend>
     <admin>
         <routers>
