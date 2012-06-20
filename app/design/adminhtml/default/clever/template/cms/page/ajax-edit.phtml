@@ -11,7 +11,9 @@
                     <div id="messages"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
                     <?php echo $this->getChildHtml('content') ?>
                     <script type="text/javascript">
-                    	$('togglepage_content').click();
+                        <?php if (Mage::getStoreConfig('cms/wysiwyg/enabled') == Mage_Cms_Model_Wysiwyg_Config::WYSIWYG_ENABLED): ?>
+                            $('togglepage_content').click();
+                        <?php endif; ?>
                     	$('page_tabs_main_section').show();
                     </script>
                 </div>

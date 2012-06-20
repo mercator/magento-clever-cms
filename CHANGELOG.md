@@ -1,3 +1,9 @@
+## 2.1.6 (branch: master) (2012-06-20)
+
+### Fixes
+
+* Fixed issue #10 (bug with show/hide WYSIWYG editor)
+
 ## 2.1.5 (branch: master) (2012-05-10)
 
 ### Fixes
