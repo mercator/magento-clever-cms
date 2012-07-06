@@ -7,8 +7,8 @@
     </default>
     <cms_page_view>
         <reference name="left">
-            <block type="jr_clevercms/cms_navigation" name="sidebar" template="cms/sidebar.phtml" before="-">
-                <action method="setRootDepth"><depth>0</depth></action>
+            <block type="jr_clevercms/cms_navigation" name="cms.sidebar" template="cms/sidebar.phtml" before="-">
+                <action method="setRootDepth"><depth>1</depth></action>
                 <!-- this allows you to set a certain rootlevel, if nothing is provided the current page is the root-->
             </block>
         </reference>
