@@ -13,7 +13,7 @@ before_script:
   - modgit init
   - modgit clone magento https://github.com/LokeyCoding/magento-mirror.git
   - mysql -e 'CREATE DATABASE IF NOT EXISTS `magento_travis`;'
-  - php -f install.php -- --license_agreement_accepted yes --locale en_GB --timezone Europe/Paris --default_currency EUR --db_host localhost --db_name magento_travis --db_user root --db_pass --url http://travis.magento.local/ --skip_url_validation yes --use_rewrites yes --use_secure no --secure_base_url --use_secure_admin no --admin_firstname Johann --admin_lastname Reinke --admin_email admin@example.com --admin_username admin --admin_password magento123
+  - php -f install.php -- --license_agreement_accepted yes --locale en_GB --timezone Europe/Paris --default_currency EUR --db_host localhost --db_name magento_travis --db_user root --db_pass "" --url http://travis.magento.local/ --skip_url_validation yes --use_rewrites yes --use_secure no --secure_base_url --use_secure_admin no --admin_firstname Johann --admin_lastname Reinke --admin_email admin@example.com --admin_username admin --admin_password magento123
 
 script:
  - php -f index.php
