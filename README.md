@@ -1,5 +1,7 @@
 # Magento CMS pages as a tree structure
 
+[![Build Status](https://secure.travis-ci.org/jreinke/magento-clever-cms.png?branch=master)](http://travis-ci.org/jreinke/magento-clever-cms)
+
 ![Clever CMS](http://i.imgur.com/3NOIN.jpg)
 
 ## Features
