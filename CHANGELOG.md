@@ -1,3 +1,9 @@
+## 2.1.7 (branch: master) (2012-10-25)
+
+### Fixes
+
+* Fixed issue #20 (Choose home page in multi store mode)
+
 ## 2.1.6 (branch: master) (2012-06-20)
 
 ### Fixes
