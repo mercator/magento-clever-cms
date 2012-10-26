@@ -1,3 +1,9 @@
+## 2.1.8 (branch: master) (2012-10-26)
+
+### Fixes
+
+* Fixed issue #19 (Widget Chooser should select name dynamically) (thanks to tantau-limora)
+
 ## 2.1.7 (branch: master) (2012-10-25)
 
 ### Fixes
