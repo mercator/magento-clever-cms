@@ -124,9 +124,9 @@ class JR_CleverCms_Model_Resource_Cms_Page_Tree extends Varien_Data_Tree_Dbp
         return $collection;
     }
 
-    public function toSelectHtml($name = '', $value = false)
+    public function toSelectHtml($name = '', $value = false, $id = '')
     {
-        $html = '<select name="' . $name . '">';
+        $html = '<select name="' . $name . '"' . ($id ? ' id="' . $id . '"' : '')  . '>';
         $html .= '<option value="">' . Mage::helper('cms')->__('Select Page...') . '</option>';
         $currentStoreId = null;
         foreach ($this->getNodes() as $node) {
