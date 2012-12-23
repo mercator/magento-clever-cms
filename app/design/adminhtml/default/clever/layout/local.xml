@@ -19,6 +19,15 @@
         <reference name="head">
             <action method="setCanLoadTinyMce"><flag>1</flag></action>
         </reference>
+        <reference name="cms_page_edit_tabs">
+            <action method="setTemplate"><template>widget/tabshoriz.phtml</template></action>
+        </reference>
+        <reference name="left">
+            <action method="unsetChild"><child>cms_page_edit_tabs</child></action>
+        </reference>
+        <reference name="cms_page_edit">
+            <action method="setTemplate"><template>cms/page/edit-container.phtml</template></action>
+        </reference>
     </adminhtml_cms_page_edit>
     
     <adminhtml_cms_page_permissions_index>
