@@ -65,7 +65,7 @@ class JR_CleverCms_Block_Cms_Navigation extends JR_CleverCms_Block_Catalog_Navig
             foreach ($children as $child)
             {
                 /** @var $child JR_CleverCms_Model_Cms_Page */
-                if ($child->getIsActive() && $child->getLevel() < $this->getMaxLevel())
+                if ($child->getIsActive() && $child->getLevel() <= $this->getMaxLevel())
                 {
                     $html .= $this->_renderCmsMenuItemHtml($child);
                 }
