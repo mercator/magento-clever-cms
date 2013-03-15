@@ -3,7 +3,9 @@
  * @method int getRootId()
  * @method JR_CleverCms_Block_Cms_Navigation setRootId(int $rootId)
  */
-class JR_CleverCms_Block_Cms_Navigation extends JR_CleverCms_Block_Catalog_Navigation
+class JR_CleverCms_Block_Cms_Navigation
+    extends JR_CleverCms_Block_Catalog_Navigation
+    implements Mage_Widget_Block_Interface
 {
 
     function _prepareLayout()
@@ -15,7 +17,7 @@ class JR_CleverCms_Block_Cms_Navigation extends JR_CleverCms_Block_Catalog_Navig
 
     function _construct()
     {
-	    $this->getDataSetDefault('max_level',1000);
+	    $this->getDataSetDefault('max_level', 1000);
     }
 
     public function getCacheKeyInfo()
@@ -65,7 +67,7 @@ class JR_CleverCms_Block_Cms_Navigation extends JR_CleverCms_Block_Catalog_Navig
             foreach ($children as $child)
             {
                 /** @var $child JR_CleverCms_Model_Cms_Page */
-                if ($child->getIsActive() && $child->getLevel() <= $this->getMaxLevel())
+                if ($child->getIsActive() && $child->getLevel() <= ($this->getMaxLevel() + 1))
                 {
                     $html .= $this->_renderCmsMenuItemHtml($child);
                 }
@@ -159,7 +161,7 @@ class JR_CleverCms_Block_Cms_Navigation extends JR_CleverCms_Block_Catalog_Navig
         $htmlChildren = '';
         $j = 0;
         foreach ($activeChildren as $child) {
-            if ($child->getLevel() < $this->getMaxLevel())
+            if ($child->getLevel() <= ($this->getMaxLevel() + 1))
             {
                 $htmlChildren .= $this->_renderCmsMenuItemHtml(
                     $child,

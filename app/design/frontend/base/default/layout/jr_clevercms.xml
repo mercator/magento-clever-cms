@@ -8,8 +8,8 @@
 
     <cms_page_view>
         <reference name="left">
-            <block type="jr_clevercms/cms_navigation" name="sidebar" template="jr_clevercms/cms/sidebar.phtml" before="-">
-                <action method="setMaxLevel"><depth>3</depth></action>
+            <block type="jr_clevercms/cms_navigation" name="cms_navigation" template="jr_clevercms/cms/navigation/default.phtml" before="-">
+                <action method="setMaxLevel"><depth>2</depth></action>
             </block>
         </reference>
     </cms_page_view>

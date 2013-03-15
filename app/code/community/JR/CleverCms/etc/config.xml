@@ -76,6 +76,9 @@
                     <page>JR_CleverCms_Helper_Cms_Page</page>
                 </rewrite>
             </cms>
+            <jr_clevercms>
+                <class>JR_CleverCms_Helper</class>
+            </jr_clevercms>
         </helpers>
         <events>
             <adminhtml_cms_page_edit_tab_main_prepare_form>
