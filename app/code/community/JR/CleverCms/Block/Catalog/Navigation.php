@@ -157,6 +157,24 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
         return Mage::getStoreConfigFlag('cms/clever/show_homepage_link');
     }
 
+
+
+    /**
+     * Checkin activity of category
+     *
+     * @param   Varien_Object $category
+     * @return  bool
+     */
+    public function isCategoryActive($category)
+    {
+        if ($this->getCurrentCategory() && $this->getRequest()->getControllerName() == 'category')
+        {
+            return in_array($category->getId(), $this->getCurrentCategory()->getPathIds());
+        }
+        return false;
+    }
+
+
     public function renderHomepageLinkHtml($level = 0, $isLast = true, $isFirst = true, $outermostItemClass = '', $childrenWrapClass = '', $homeText) {
         if (! $this->showHomepageLink()) {
             return '';
