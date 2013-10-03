@@ -158,6 +158,63 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
         return $html;
     }
 
+    public function showHomepageLink() {
+        return Mage::getStoreConfigFlag('cms/clever/show_homepage_link');
+    }
+
+    public function renderHomepageLinkHtml($level = 0, $isLast = true, $isFirst = true, $outermostItemClass = '', $childrenWrapClass = '', $homeText) {
+        if (! $this->showHomepageLink()) {
+            return '';
+        }
+
+        $html = array();
+
+        // prepare list item html classes
+        $classes = array();
+        $classes[] = 'level' . $level;
+        $classes[] = 'nav-' . $this->_getItemPosition($level);
+
+        if ($this->getRequest()->getModuleName() == 'cms'
+           && $this->getRequest()->getControllerName() == 'index'
+           && $this->getRequest()->getActionName() == 'index')
+        {
+            $classes[] = 'active';
+        }
+        $linkClass = '';
+        if ($outermostItemClass) {
+            $classes[] = $outermostItemClass;
+            $linkClass = ' class="' . $outermostItemClass . '"';
+        }
+        if ($isFirst) {
+            $classes[] = 'first';
+        }
+        if ($isLast) {
+            $classes[] = 'last';
+        }
+
+        // prepare list item attributes
+        $attributes = array();
+        if (count($classes) > 0) {
+            $attributes['class'] = implode(' ', $classes);
+        }
+
+        // assemble list item with attributes
+        $htmlLi = '<li';
+        foreach ($attributes as $attrName => $attrValue)
+        {
+            $htmlLi .= ' ' . $attrName . '="' . str_replace('"', '\"', $attrValue) . '"';
+        }
+        $htmlLi .= '>';
+        $html[] = $htmlLi;
+
+        $html[] = '<a href="' . Mage::getBaseUrl() . '"' . $linkClass . '>';
+        $html[] = '<span>' . $homeText . '</span>';
+        $html[] = '</a>';
+        $html[] = '</li>';
+
+        return implode("\n", $html);
+    }
+
     /**
      * Render CMS menu in HTML
      *
