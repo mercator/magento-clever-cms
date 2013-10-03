@@ -62,23 +62,18 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
         }
         $html = array();
 
-        // get all children
+        // Get all children
+        /** @var JR_CleverCms_Model_Resource_Cms_Page_Collection $children */
         $children = $page->getChildren();
+        $children->addFieldToFilter('is_active', 1);
+        $children->addFieldToFilter('include_in_menu', 1);
         if (Mage::helper('cms/page')->isPermissionsEnabled($this->getStore())) {
             $children->addPermissionsFilter($this->getCustomerGroupId());
         }
-        $childrenCount = $children->count();
-        $hasChildren = ($children && $childrenCount);
-
-        // select active children
-        $activeChildren = array();
-        foreach ($children as $child) {
-            if ($child->getIsActive() && $child->getIncludeInMenu()) {
-                $activeChildren[] = $child;
-            }
+        if (Mage::getStoreConfig('catalog/navigation/max_depth')) {
+            $level = Mage::getStoreConfig('catalog/navigation/max_depth') + 1;
+            $children->addFieldToFilter('level', array('lteq' => $level));
         }
-        $activeChildrenCount = count($activeChildren);
-        $hasActiveChildren = ($activeChildrenCount > 0);
 
         // prepare list item html classes
         $classes = array();
@@ -98,7 +93,7 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
         if ($isLast) {
             $classes[] = 'last';
         }
-        if ($hasActiveChildren) {
+        if ($children->count()) {
             $classes[] = 'parent';
         }
 
@@ -107,7 +102,7 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
         if (count($classes) > 0) {
             $attributes['class'] = implode(' ', $classes);
         }
-        if ($hasActiveChildren && !$noEventAttributes) {
+        if ($children->count() && !$noEventAttributes) {
              $attributes['onmouseover'] = 'toggleMenu(this,1)';
              $attributes['onmouseout'] = 'toggleMenu(this,0)';
         }
@@ -126,11 +121,11 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
         // render children
         $htmlChildren = '';
         $j = 0;
-        foreach ($activeChildren as $child) {
+        foreach ($children as $child) {
             $htmlChildren .= $this->_renderCmsMenuItemHtml(
                 $child,
                 ($level + 1),
-                ($j == $activeChildrenCount - 1),  // is last
+                ($j == $children->count() - 1),  // is last
                 ($j == 0),                         // is first
                 false,                             // is outermost
                 $outermostItemClass,
