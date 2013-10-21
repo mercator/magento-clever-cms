@@ -47,3 +47,13 @@ or download package manually:
 ## Full overview
 
 I wrote an article on my blog for full extension overview, [click here](http://www.johannreinke.com/en/2012/01/10/magento-cms-pages-in-a-tree-structure/).
+
+
+## Manadev
+For comability with the manadev layered navigation a foreign key must be updated
+
+On the table m_seo_url delete the foreign key FK_m_seo_url_cms_page_id
+And add a new key with the name: FK_m_seo_url_cms_page_tree_id
+own field: cms_page_id
+other table: cms_page_tree
+other field: page_id

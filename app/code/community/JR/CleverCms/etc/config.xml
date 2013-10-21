@@ -30,6 +30,7 @@
                 </rewrite>
                 <entities>
                     <page_permission><table>cms_page_permission</table></page_permission>
+                    <page_tree><table>cms_page_tree</table></page_tree>
                 </entities>
             </cms_resource>
             <sitemap_resource>
@@ -42,6 +43,11 @@
                     <system_config_source_cms_page>JR_CleverCms_Model_Adminhtml_System_Config_Source_Cms_Page</system_config_source_cms_page>
                 </rewrite>
             </adminhtml>
+            <mana_seo_resources>
+                <rewrite>
+                    <urlIndexer_cmsPage>JR_CleverCms_Model_Resource_Mana_Seo_UrlIndexer_CmsPage</urlIndexer_cmsPage>
+                </rewrite>
+            </mana_seo_resources>
         </models>
         <blocks>
             <jr_clevercms>
