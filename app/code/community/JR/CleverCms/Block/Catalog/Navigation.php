@@ -62,23 +62,18 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
         }
         $html = array();
 
-        // get all children
+        // Get all children
+        /** @var JR_CleverCms_Model_Resource_Cms_Page_Collection $children */
         $children = $page->getChildren();
+        $children->addFieldToFilter('is_active', 1);
+        $children->addFieldToFilter('include_in_menu', 1);
         if (Mage::helper('cms/page')->isPermissionsEnabled($this->getStore())) {
             $children->addPermissionsFilter($this->getCustomerGroupId());
         }
-        $childrenCount = $children->count();
-        $hasChildren = ($children && $childrenCount);
-
-        // select active children
-        $activeChildren = array();
-        foreach ($children as $child) {
-            if ($child->getIsActive() && $child->getIncludeInMenu()) {
-                $activeChildren[] = $child;
-            }
+        if (Mage::getStoreConfig('catalog/navigation/max_depth')) {
+            $level = Mage::getStoreConfig('catalog/navigation/max_depth') + 1;
+            $children->addFieldToFilter('level', array('lteq' => $level));
         }
-        $activeChildrenCount = count($activeChildren);
-        $hasActiveChildren = ($activeChildrenCount > 0);
 
         // prepare list item html classes
         $classes = array();
@@ -98,7 +93,7 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
         if ($isLast) {
             $classes[] = 'last';
         }
-        if ($hasActiveChildren) {
+        if ($children->count()) {
             $classes[] = 'parent';
         }
 
@@ -107,7 +102,7 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
         if (count($classes) > 0) {
             $attributes['class'] = implode(' ', $classes);
         }
-        if ($hasActiveChildren && !$noEventAttributes) {
+        if ($children->count() && !$noEventAttributes) {
              $attributes['onmouseover'] = 'toggleMenu(this,1)';
              $attributes['onmouseout'] = 'toggleMenu(this,0)';
         }
@@ -126,11 +121,11 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
         // render children
         $htmlChildren = '';
         $j = 0;
-        foreach ($activeChildren as $child) {
+        foreach ($children as $child) {
             $htmlChildren .= $this->_renderCmsMenuItemHtml(
                 $child,
                 ($level + 1),
-                ($j == $activeChildrenCount - 1),  // is last
+                ($j == $children->count() - 1),  // is last
                 ($j == 0),                         // is first
                 false,                             // is outermost
                 $outermostItemClass,
@@ -156,6 +151,81 @@ class JR_CleverCms_Block_Catalog_Navigation extends Mage_Catalog_Block_Navigatio
 
         $html = implode("\n", $html);
         return $html;
+    }
+
+    public function showHomepageLink() {
+        return Mage::getStoreConfigFlag('cms/clever/show_homepage_link');
+    }
+
+
+
+    /**
+     * Checkin activity of category
+     *
+     * @param   Varien_Object $category
+     * @return  bool
+     */
+    public function isCategoryActive($category)
+    {
+        if ($this->getCurrentCategory() && $this->getRequest()->getControllerName() == 'category')
+        {
+            return in_array($category->getId(), $this->getCurrentCategory()->getPathIds());
+        }
+        return false;
+    }
+
+
+    public function renderHomepageLinkHtml($level = 0, $isLast = true, $isFirst = true, $outermostItemClass = '', $childrenWrapClass = '', $homeText) {
+        if (! $this->showHomepageLink()) {
+            return '';
+        }
+
+        $html = array();
+
+        // prepare list item html classes
+        $classes = array();
+        $classes[] = 'level' . $level;
+        $classes[] = 'nav-' . $this->_getItemPosition($level);
+
+        if ($this->getRequest()->getModuleName() == 'cms'
+           && $this->getRequest()->getControllerName() == 'index'
+           && $this->getRequest()->getActionName() == 'index')
+        {
+            $classes[] = 'active';
+        }
+        $linkClass = '';
+        if ($outermostItemClass) {
+            $classes[] = $outermostItemClass;
+            $linkClass = ' class="' . $outermostItemClass . '"';
+        }
+        if ($isFirst) {
+            $classes[] = 'first';
+        }
+        if ($isLast) {
+            $classes[] = 'last';
+        }
+
+        // prepare list item attributes
+        $attributes = array();
+        if (count($classes) > 0) {
+            $attributes['class'] = implode(' ', $classes);
+        }
+
+        // assemble list item with attributes
+        $htmlLi = '<li';
+        foreach ($attributes as $attrName => $attrValue)
+        {
+            $htmlLi .= ' ' . $attrName . '="' . str_replace('"', '\"', $attrValue) . '"';
+        }
+        $htmlLi .= '>';
+        $html[] = $htmlLi;
+
+        $html[] = '<a href="' . Mage::getBaseUrl() . '"' . $linkClass . '>';
+        $html[] = '<span>' . $homeText . '</span>';
+        $html[] = '</a>';
+        $html[] = '</li>';
+
+        return implode("\n", $html);
     }
 
     /**

@@ -7,11 +7,13 @@
  */
 ?>
 <?php
-  $_cmsIsFirst = !$this->hasCategoriesNavigationMenuPages();
-  $_categoriesIsLast = !$this->hasCmsNavigationMenuPages();
+$_categoriesIsFirst = !$this->showHomepageLink();
+$_categoriesIsLast = !$this->hasCmsNavigationMenuPages();
+$_cmsIsFirst = !$this->hasCategoriesNavigationMenuPages();
 
-  $_menu  = $this->renderCategoriesMenuHtmlClever(0, $_categoriesIsLast, true, 'level-top');
-  $_menu .= $this->renderCmsMenuHtml(0, true, $_cmsIsFirst, 'level-top');
+$_menu = $this->renderHomepageLinkHtml(0, false, true, 'level-top', '', $this->__("Home"));
+$_menu.= $this->renderCategoriesMenuHtmlClever(0, $_categoriesIsLast, $_categoriesIsFirst, 'level-top');
+$_menu.= $this->renderCmsMenuHtml(0, true, $_cmsIsFirst, 'level-top');
 ?>
 <?php if ($_menu): ?>
 <div class="nav-container">
