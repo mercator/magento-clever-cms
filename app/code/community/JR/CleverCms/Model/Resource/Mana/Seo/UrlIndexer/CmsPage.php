@@ -47,7 +47,7 @@ class JR_CleverCms_Model_Resource_Mana_Seo_UrlIndexer_CmsPage extends Mana_Seo_R
             ->distinct()
             ->from(array('p' => $this->getTable('cms/page_tree')), null)
             ->columns($fields)
-            ->where('`p`.`store_id` = ? OR `p`.`store_id` = 0', $schema->getStoreId());
+            ->where('`p`.`store_id` = ? OR `p`.`store_id` = 0 OR `p`.`identifier` <> \'\'', $schema->getStoreId());
 
         $obsoleteCondition = "(`schema_id` = " . $schema->getId() . ") AND (`is_page` = 1) AND (`type` = 'cms_page')";
         if (isset($options['cms_page_id'])) {
