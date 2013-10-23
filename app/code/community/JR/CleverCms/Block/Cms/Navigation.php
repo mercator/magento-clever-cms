@@ -8,13 +8,6 @@ class JR_CleverCms_Block_Cms_Navigation
     implements Mage_Widget_Block_Interface
 {
 
-    function _prepareLayout()
-    {
-        parent::_prepareLayout();
-
-        return $this;
-    }
-
     function _construct()
     {
         /*
@@ -26,18 +19,41 @@ class JR_CleverCms_Block_Cms_Navigation
         if ($this->hasData('template')) {
             $this->setTemplate($this->getData('template'));
         }
-
+        $this->addData(array(
+            'cache_lifetime' => false,
+            'cache_tags'     => array(
+                Mage_Catalog_Model_Category::CACHE_TAG,
+                Mage_Core_Model_Store_Group::CACHE_TAG,
+                self::CACHE_TAG,
+            ),
+        ));
 	    $this->getDataSetDefault('max_level', 1000);
     }
 
     public function getCacheKeyInfo()
     {
-	    return array(
-            'BLOCK_TPL',
-            Mage::app()->getStore()->getCode(),
-            $this->getTemplateFile(),
-            'template' => $this->getTemplate()
+        $shortCacheId = array(
+            'CATALOG_NAVIGATION',
+            Mage::app()->getStore()->getId(),
+            Mage::getDesign()->getPackageName(),
+            Mage::getDesign()->getTheme('template'),
+            Mage::getSingleton('customer/session')->getCustomerGroupId(),
+            'template' => $this->getTemplate(),
+            'name' => $this->getNameInLayout(),
+            $this->getCurrenCategoryKey(),
+            $this->getRootId()
         );
+        $cacheId = $shortCacheId;
+
+        $shortCacheId = array_values($shortCacheId);
+        $shortCacheId = implode('|', $shortCacheId);
+        $shortCacheId = md5($shortCacheId);
+
+        $cacheId['category_path'] = $this->getCurrenCategoryKey();
+        $cacheId['page_id'] = $this->getRootId();
+        $cacheId['short_cache_id'] = $shortCacheId;
+
+        return $cacheId;
     }
 
     /**
@@ -45,11 +61,9 @@ class JR_CleverCms_Block_Cms_Navigation
      */
     public function getRoot()
     {
-        if ($this->getRootId())
-        {
+        if ($this->getRootId()) {
             return Mage::getModel('cms/page')->load($this->getRootId());
-        } elseif ($page = $this->getCurrentCmsPage())
-        {
+        } elseif ($page = $this->getCurrentCmsPage()) {
             $pathIds = $page->getPathIds();
 
             /** @var $rootPage JR_CleverCms_Model_Cms_Page */
