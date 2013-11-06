@@ -41,6 +41,7 @@ class JR_CleverCms_Block_Cms_Navigation
             'template' => $this->getTemplate(),
             'name' => $this->getNameInLayout(),
             $this->getCurrenCategoryKey(),
+            $this->getCurrentCmsPage() ? $this->getCurrentCmsPage()->getId() : false,
             $this->getRootId()
         );
         $cacheId = $shortCacheId;
@@ -51,6 +52,7 @@ class JR_CleverCms_Block_Cms_Navigation
 
         $cacheId['category_path'] = $this->getCurrenCategoryKey();
         $cacheId['page_id'] = $this->getRootId();
+        $cacheId['current_page'] = $this->getCurrentCmsPage() ? $this->getCurrentCmsPage()->getId() : false;
         $cacheId['short_cache_id'] = $shortCacheId;
 
         return $cacheId;
