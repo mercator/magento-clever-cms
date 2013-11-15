@@ -1,0 +1,9 @@
+{
+    "name": "mercator/clever_cms",
+    "type": "magento-module",
+    "description": "Mercator repository for the H&O fork of the Clever_Cms extension. Adds CMS tree structure and permissions.",
+    "homepage": "https://github.com/mercator/clever_cms",
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
