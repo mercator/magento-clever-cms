@@ -34,6 +34,7 @@ class JR_CleverCms_Block_Cms_Page extends Mage_Cms_Block_Page
             $head->setTitle($page->getTitle());
             $head->setKeywords($page->getMetaKeywords());
             $head->setDescription($page->getMetaDescription());
+            $head->setRobots($page->getMetaRobots());
         }
 
         return $this;
