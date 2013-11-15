@@ -93,7 +93,7 @@ class JR_CleverCms_Block_Cms_Navigation
             foreach ($children as $child)
             {
                 /** @var $child JR_CleverCms_Model_Cms_Page */
-                if ($child->getIsActive() && $child->getLevel() <= ($this->getMaxLevel() + 1))
+                if ($child->getIsActive() && $child->getIncludeInMenu() && $child->getLevel() <= ($this->getMaxLevel() + 1))
                 {
                     $html .= $this->_renderCmsMenuItemHtml($child);
                 }
@@ -137,7 +137,7 @@ class JR_CleverCms_Block_Cms_Navigation
         // select active children
         $activeChildren = array();
         foreach ($children as $child) {
-            if ($child->getIsActive()) {
+            if ($child->getIsActive() && $child->getIncludeInMenu()) {
             $activeChildren[] = $child;
             }
         }
