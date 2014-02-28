@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
+    <!-- When the Webcomm_BootstrapNavigation module is active, this layout
+         update will have no effect - it's overridden by one in the
+         Webcomm_BootstrapNavigation module. -->
     <default>
         <reference name="catalog.topnav">
             <action method="setTemplate"><template>jr_clevercms/page/html/topmenu.phtml</template></action>

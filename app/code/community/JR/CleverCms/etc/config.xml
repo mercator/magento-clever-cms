@@ -63,11 +63,16 @@
                     <navigation>JR_CleverCms_Block_Catalog_Navigation</navigation>
                 </rewrite>
             </catalog>
+
+            <!-- When the Webcomm_BootstrapNavigation module is active, this
+                 rewrite will have no effect - it's overridden by one in the
+                 Webcomm_BootstrapNavigation module. -->
             <page>
                 <rewrite>
                     <html_topmenu>JR_CleverCms_Block_Page_Html_Topmenu</html_topmenu>
                 </rewrite>
             </page>
+
             <adminhtml>
                 <rewrite>
                     <cms_page_edit>JR_CleverCms_Block_Adminhtml_Cms_Page_Edit</cms_page_edit>
