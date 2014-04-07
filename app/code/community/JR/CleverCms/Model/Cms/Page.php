@@ -210,7 +210,8 @@ class JR_CleverCms_Model_Cms_Page extends Mage_Cms_Model_Page
             $this->setCreateDefaultPermission(false);
         }
 
-        return $this;
+        // FONTIS: call parent parent _afterSave(), skipping the cms page model logic that this class doesn't want
+        return Mage_Core_Model_Abstract::_afterSave();
     }
 
     protected function _afterLoad()
