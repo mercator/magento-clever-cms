@@ -14,7 +14,9 @@ class JR_CleverCms_Model_Resource_Setup extends Mage_Core_Model_Resource_Setup
             $modules = Mage::getConfig()->getNode('modules')->children();
             $myModule = substr(__CLASS__, 0, strpos(__CLASS__, '_Model'));
             foreach ($modules as $moduleName => $moduleNode) {
-                if ($moduleName != $myModule) {
+                // MERCATOR - If we skip installing this module, also skip
+                // Webcomm_BootstrapNavigation as it depends on this module.
+                if ($moduleName != $myModule && $moduleName != 'Webcomm_BootstrapNavigation') {
                     Mage::getConfig()->addAllowedModules($moduleName);
                 }
             }
